@@ -12,6 +12,12 @@ public class Main {
         //ejercicios.ejercicio6();
         //ejercicios.ejercicio7();
         //ejercicios.ejercicio8();
-        ejercicios.ejercicio9();
+        //ejercicios.ejercicio9();
+        //ejercicios.ejercicio10();
+        //ejercicios.ejercicio11();
+        //ejercicios.ejercicio12();
+        //ejercicios.ejercicio13();
+        //ejercicios.ejercicio14();
+        ejercicios.ejercicio15();
     }
 }
