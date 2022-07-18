@@ -1,5 +1,12 @@
 package ejercicios.tecnicos.com;
 
+import ejercicio16.Persona;
+import ejercicio17.Electrodomestico;
+import ejercicio17.Lavadora;
+import ejercicio17.Television;
+import ejercicio18.Serie;
+import ejercicio18.Videojuego;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -118,7 +125,7 @@ public class Ejercicios {
         //Crea una aplicación por consola que nos pida un día de la semana y que nos
         //diga si es un día laboral o no. Usa un switch para ello.
         System.out.println("Introduce un dia de la semana");
-        String dia = leerDato.nextLine();
+        String dia = leerDato.nextLine().toLowerCase();
 
         switch (dia) {
             case "lunes":
@@ -208,17 +215,18 @@ public class Ejercicios {
 
     public void ejercicio15(){
         boolean estado = true;
-        System.out.println("****** GESTION CINEMATOGRÁFICA ********\n" +
-                "1-NUEVO ACTOR\n" +
-                "2-BUSCAR ACTOR\n" +
-                "3-ELIMINAR ACTOR\n" +
-                "4-MODIFICAR ACTOR\n" +
-                "5-VER TODOS LOS ACTORES\n" +
-                "6- VER PELICULAS DE LOS ACTORES\n" +
-                "7-VER CATEGORIA DE LAS PELICULAS DE LOS ACTORES\n" +
-                "8-SALIR");
+
 
         do{
+            System.out.println("****** GESTION CINEMATOGRÁFICA ********\n" +
+                    "1-NUEVO ACTOR\n" +
+                    "2-BUSCAR ACTOR\n" +
+                    "3-ELIMINAR ACTOR\n" +
+                    "4-MODIFICAR ACTOR\n" +
+                    "5-VER TODOS LOS ACTORES\n" +
+                    "6- VER PELICULAS DE LOS ACTORES\n" +
+                    "7-VER CATEGORIA DE LAS PELICULAS DE LOS ACTORES\n" +
+                    "8-SALIR");
             System.out.println("Digite una opcion: ");
             Integer opcion = leerDato.nextInt();
            switch(opcion){
@@ -251,6 +259,133 @@ public class Ejercicios {
                    System.out.println("Opcion incorrecta");
            }
         }while(estado);
+    }
+
+    public void ejercicio16(){
+        System.out.println("Nombre: ");
+        String nombre = leerDato.nextLine();
+        System.out.println("Edad: ");
+        Integer edad = leerDato.nextInt();
+        System.out.println("Sexo: ");
+        String sexoS = leerDato.next();
+        Character sexo=sexoS.charAt(0);
+        System.out.println("Peso");
+        Double peso = leerDato.nextDouble();
+        System.out.println("Altura: ");
+        Double altura = leerDato.nextDouble();
+
+        Persona persona1 = new Persona(nombre, edad, sexo, peso, altura);
+        Persona persona2 = new Persona(nombre, edad, sexo);
+        Persona persona3 = new Persona();
+
+        persona3.setNombre("Juan");
+        persona3.setSexo('H');
+        persona3.setPeso(56.0);
+        persona3.setEdad(26);
+        persona3.setAltura(1.70);
+
+        System.out.println("Persona 1");
+        persona1.calcularIMC();
+        persona1.esMayorDeEdad();
+        System.out.println(persona1.toString());
+
+        System.out.println("Persona 2");
+        persona2.calcularIMC();
+        persona2.esMayorDeEdad();
+        System.out.println(persona2.toString());
+
+        System.out.println("Persona 3");
+        persona3.calcularIMC();
+        persona3.esMayorDeEdad();
+        System.out.println(persona3.toString());
+
+    }
+    public void ejercicio17(){
+        ArrayList<Electrodomestico> electrodomesticos=new ArrayList<>(10);
+        Double precioB=100.0;
+        for(int x=0;x<5;x++){
+            Lavadora lavadora=new Lavadora(precioB,"blanco",'A',30.0,6.0);
+            if(lavadora instanceof Electrodomestico){
+                electrodomesticos.add(x,lavadora);
+            }
+            precioB+=100.0;
+        }
+        for(int x=5;x<10;x++){
+
+            Television television=new Television(precioB,"blanco",'F',10.0,42,true);
+            if(television instanceof Electrodomestico){
+                electrodomesticos.add(x,television);
+            }
+            precioB+=100.0;
+        }
+        Double precio=0.0;
+        for (Electrodomestico electrodomestico: electrodomesticos){
+            System.out.println(electrodomestico.precioFinal());
+            precio=precio+electrodomestico.precioFinal();
+        }
+        System.out.println("Precio total de electrodomesticos= "+precio);
+    }
+    public void ejercicio18(){
+
+        ArrayList<Serie> series=new ArrayList<>(5);
+        ArrayList<Videojuego> videojuegos=new ArrayList<>(5);
+        Integer temp=1;
+        Integer horas=12;
+        for (int x=0;x<5;x++){
+            Serie serie=new Serie("De regreso al espacio","Elon Musk",temp,"Ciencia");
+            series.add(serie);
+            temp+=1;
+
+            Videojuego videojuego=new Videojuego("Horizon",horas,"Aventura","Sony");
+            videojuegos.add(videojuego);
+            horas+=2;
+        }
+
+        series.get(3).entregar();
+        series.get(4).entregar();
+        videojuegos.get(2).entregar();
+        videojuegos.get(0).entregar();
+
+        Integer entregados=0;
+        for(Serie serie:series){
+
+            if(serie.isEntregado()){
+                entregados+=1;
+                serie.devolver();
+            }
+        }
+        System.out.println("Se han entregado "+ entregados+" series");
+        entregados=0;
+        for(Videojuego videojuego:videojuegos){
+
+            if(videojuego.isEntregado()){
+                entregados+=1;
+                videojuego.devolver();
+            }
+        }
+        System.out.println("Se han entregado "+ entregados+" videojuegos");
+        Serie serie=new Serie();
+        for(int x=0;x<4;x++){
+
+            if(x==0){
+                serie=series.get(x).compareTo(series.get(x+1));
+            }else{
+                serie=serie.compareTo(series.get(x+1));
+            }
+
+        }
+        System.out.println(serie.toString());
+        Videojuego videojuego=new Videojuego();
+        for(int x=0;x<4;x++){
+            if(x==0){
+                videojuego=videojuegos.get(x).compareTo(videojuegos.get(x+1));
+            }else{
+                videojuego=videojuego.compareTo(videojuegos.get(x+1));
+            }
+        }
+        System.out.println(videojuego.toString());
+
+
     }
 
 }
